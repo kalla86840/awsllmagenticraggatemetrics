@@ -4,7 +4,7 @@ Description: AWS CodePipeline and CodeBuild CI/CD for OpenAI hospital agentic RA
 Parameters:
   ProjectName:
     Type: String
-    Default: hospital-agentic-rag
+    Default: awsllmagenticraggatemetrics
   ArtifactBucketName:
     Type: String
     Default: mlopswithsagemaker111
@@ -15,7 +15,7 @@ Parameters:
     Description: AWS CodeConnections connection ARN for GitHub.
   RepositoryId:
     Type: String
-    Default: kalla86840/awsllmagenticrag
+    Default: kalla86840/awsllmagenticraggatemetrics
     Description: GitHub repository in owner/repository form.
   BranchName:
     Type: String
@@ -75,6 +75,7 @@ Resources:
                   - cloudformation:DescribeChangeSet
                   - cloudformation:DescribeStacks
                   - cloudformation:ExecuteChangeSet
+                  - cloudformation:GetTemplateSummary
                   - cloudformation:UpdateStack
                 Resource: "*"
               - Effect: Allow
