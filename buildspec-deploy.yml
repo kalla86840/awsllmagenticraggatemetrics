@@ -1,0 +1,33 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_DEFAULT_REGION: us-west-1
+    AWS_REGION: us-west-1
+    APP_DIR: .
+    PROJECT_NAME: hospital-agentic-rag
+    ARTIFACT_BUCKET: mlopswithsagemaker111
+    OPENAI_MODEL: gpt-5.2
+    OPENAI_API_KEY_SECRET_ARN: arn:aws:secretsmanager:us-west-1:659613508664:secret:openai/api-key-6BGXhJ
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - python -m pip install --upgrade pip
+  build:
+    commands:
+      - cd "${APP_DIR}"
+      - rm -rf build dist
+      - mkdir -p build dist
+      - python -m pip install -r requirements.txt -t build
+      - cp src/app.py src/agent_profiles.yaml src/hospital_operations_manual.txt build/
+      - cd build && zip -r ../dist/hospital-agentic-rag.zip . && cd ..
+      - aws s3 cp dist/hospital-agentic-rag.zip "s3://${ARTIFACT_BUCKET}/${PROJECT_NAME}/lambda/hospital-agentic-rag.zip"
+      - aws cloudformation deploy --template-file infrastructure/lambda.yaml --stack-name "${PROJECT_NAME}-endpoint" --capabilities CAPABILITY_NAMED_IAM --parameter-overrides ProjectName="${PROJECT_NAME}" ArtifactBucketName="${ARTIFACT_BUCKET}" LambdaS3Key="${PROJECT_NAME}/lambda/hospital-agentic-rag.zip" OpenAIApiKeySecretArn="${OPENAI_API_KEY_SECRET_ARN}" OpenAIModel="${OPENAI_MODEL}"
+
+artifacts:
+  base-directory: .
+  files:
+    - dist/hospital-agentic-rag.zip
