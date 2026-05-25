@@ -1,0 +1,35 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_DEFAULT_REGION: us-west-1
+    AWS_REGION: us-west-1
+    APP_DIR: .
+    PROJECT_NAME: hospital-agentic-rag
+    ARTIFACT_BUCKET: mlopswithsagemaker111
+    RAG_GATE_MIN_SCORE: "0.25"
+    RAG_METRICS_NAMESPACE: hospital-agentic-rag/RAG
+    RAG_METRICS_PATH: dist/rag-metrics.json
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - python -m pip install --upgrade pip
+      - python -m pip install -r "${APP_DIR}/requirements.txt" -r "${APP_DIR}/requirements-dev.txt"
+  build:
+    commands:
+      - cd "${APP_DIR}"
+      - mkdir -p dist
+      - python -m pytest tests
+      - python scripts/evaluate_rag.py --min-score "${RAG_GATE_MIN_SCORE}" --output "${RAG_METRICS_PATH}"
+      - aws s3 cp "${RAG_METRICS_PATH}" "s3://${ARTIFACT_BUCKET}/${PROJECT_NAME}/metrics/rag-metrics-${CODEBUILD_BUILD_NUMBER}.json"
+      - aws s3 cp "${RAG_METRICS_PATH}" "s3://${ARTIFACT_BUCKET}/${PROJECT_NAME}/metrics/latest-rag-metrics.json"
+      - |
+        python -c "import json,os,subprocess; m=json.load(open(os.environ['RAG_METRICS_PATH'])); ns=os.environ['RAG_METRICS_NAMESPACE']; dims=[{'Name':'ProjectName','Value':os.environ['PROJECT_NAME']}]; data=[{'MetricName': k, 'Value': float(v), 'Unit': 'None', 'Dimensions': dims} for k,v in m['metrics'].items()]; subprocess.check_call(['aws','cloudwatch','put-metric-data','--namespace',ns,'--metric-data',json.dumps(data)])"
+
+artifacts:
+  base-directory: .
+  files:
+    - dist/rag-metrics.json

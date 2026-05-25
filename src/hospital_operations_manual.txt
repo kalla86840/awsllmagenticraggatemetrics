@@ -1,0 +1,25 @@
+# Riverside General Hospital Acute Care Operations Manual
+
+## Emergency Department Chest Pain Intake
+Patients with chest pressure, shortness of breath, sweating, fainting, oxygen saturation below 92 percent, systolic blood pressure below 90, or a pain score of 7 or higher must be treated as high acuity. Registration should create the encounter immediately, the charge nurse should assign a monitored bed, and the doctor should be notified within five minutes. Obtain a 12-lead ECG within ten minutes when chest pain, jaw pain, left arm pain, or unexplained dyspnea is present.
+
+## Sepsis Screening And Escalation
+Screen for sepsis when fever, suspected infection, altered mental status, respiratory rate above 22, systolic blood pressure below 100, or lactate concern is present. The nurse should document the first abnormal vital sign time. The doctor should evaluate for infection source, blood cultures, antibiotics, fluids, and transfer level. The hospital operations agent should check bed availability for step-down or ICU if hypotension persists after initial fluids.
+
+## Stroke Alert Workflow
+Activate a stroke alert for facial droop, arm weakness, speech difficulty, sudden vision loss, severe sudden headache, or last-known-well within 24 hours. The hospital agent coordinates CT scanner availability and transport. The doctor confirms contraindications and imaging needs. The nurse records last-known-well, glucose, anticoagulant use, neurological checks, and family contact details.
+
+## Nurse Handoff Standard
+Every handoff must include patient identifier, chief concern, current vitals, oxygen delivery, allergies, active medications, pending labs or imaging, isolation status, fall risk, and immediate watch items. For unstable patients, bedside handoff is required and the receiving nurse must repeat back the two highest risk issues.
+
+## Doctor Clinical Review Standard
+The doctor agent should separate evidence from assumptions, name the most time-sensitive risks, recommend next clinical assessments, and mark items requiring licensed clinician judgment. The doctor should not claim a final diagnosis from administrative or monitoring data alone. When vital signs are unstable, escalation should be urgent or emergent.
+
+## Hospital Operations Coordination
+The hospital agent is responsible for bed placement, staffing, equipment, transport, and escalation routing. When an event is emergent, the hospital agent must identify the unit that should receive the patient, whether telemetry or ICU capacity is needed, and which service line should be paged. The hospital agent must not provide clinical diagnosis.
+
+## Documentation And Audit Requirements
+The care team should record retrieved policy sections used for decisions, agent recommendations, escalation level, and final human reviewer. The RAG system is decision support only. Clinicians remain responsible for patient assessment, diagnosis, treatment orders, and final disposition.
+
+## RAG Performance Test Questions
+Chest pain questions should retrieve Emergency Department Chest Pain Intake, Doctor Clinical Review Standard, and Nurse Handoff Standard. Sepsis questions should retrieve Sepsis Screening And Escalation and Hospital Operations Coordination. Stroke questions should retrieve Stroke Alert Workflow and Nurse Handoff Standard. Handoff questions should retrieve Nurse Handoff Standard and Documentation And Audit Requirements.
